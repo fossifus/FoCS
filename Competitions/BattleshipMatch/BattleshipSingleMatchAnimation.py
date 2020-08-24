@@ -1,0 +1,124 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Mar  6 20:47:18 2020
+
+@author: Kyle
+"""
+
+import matplotlib.pyplot as plt
+from matplotlib import animation
+from Battleship import GameManager
+import numpy as np
+
+
+
+
+
+
+def placePiece(piece, Board):
+    col = [i for [i,j] in piece]
+    row = [j for [i,j] in piece]
+    t = max(col)
+    b = min(col)
+    l = min(row)
+    r = max(row)
+#    t = piece[0][0]
+#    b = piece[-1][0]
+#    l = piece[0][1]
+#    r = piece[-1][1]
+    Board[b*10 + 2:t*10+9,l*10 + 2:r*10+9] = np.ones((10*(t-b)+7,10*(r-l)+7),dtype = int)*5
+
+def init():
+    return [im]
+
+
+def GameOver():
+    b = np.ones((100,210), dtype = int)*10
+    b[50:90,10:20] = np.ones((40,10), dtype = int)*5
+    b[80:90,20:40] = np.ones((10,20), dtype = int)*5
+    b[70:80,30:40] = np.ones((10,10), dtype = int)*5
+    b[50:60,20:40] = np.ones((10,20), dtype = int)*5
+    
+    return b
+
+def animate(i):
+    if i % 2 == 0:
+        [r,c] = game.p1Moves[int(i/2)]
+        B[r*10 + 3:r*10+8, c*10 + 3:c*10+8] = np.ones((5,5), dtype = int)
+    else:
+        [r,c] = game.p2Moves[int((i-1)/2)]
+        A[r*10 + 3:r*10+8, c*10 + 3:c*10+8] = np.ones((5,5), dtype = int)
+        
+    Board = np.concatenate((A,np.ones((100,10), dtype = int),B),axis = 1)
+    im = plt.imshow(Board)
+    return [im]
+
+game = GameManager()
+game.startGame()
+
+#Set up the Boards A and B
+A = np.ones((100,100), dtype = int)*10
+for i in range(1,10):
+    A[:,i*10] = np.ones(100)
+    A[i*10,:] = np.ones(100)
+B = np.copy(A)
+
+for p in game.b1Copy:
+    placePiece(p,A)
+for p in game.b2Copy:
+    placePiece(p,B)
+
+Board = np.concatenate((A,np.ones((100,10), dtype = int),B),axis = 1)
+
+
+
+#B=Checkerboard(100,10)
+#print(B)
+fig = plt.figure()
+ax = plt.axes(xlim=(0, 210), ylim=(0, 100))
+im = plt.imshow(Board)
+#plt.show()
+
+frame = len(game.p1Moves) + len(game.p2Moves)+1
+anim = animation.FuncAnimation(fig, animate, init_func=init, frames=frame, interval=500, blit=True)
+anim.save("Battleship.mp4")
+
+
+#
+#game = GameManager()
+#
+#wins = 0
+##Run up to 1001 games, to ensure no tie
+#for nGames in range(1,1002):
+#    #number of wins for first player
+#    wins += game.startGame()
+#    #second player has won nGames - wins
+#    
+#    #if more than one hundred games first one to win 500 games wins match
+#    if nGames > 100:
+#        if wins > 500:
+#            break
+#        elif nGames - wins > 500:
+#            break
+#    #If someone wins more than 70 of the first 100 games they are the winner
+#    elif nGames >= 70:
+#        if wins >= 70:
+#            break
+#        elif wins <= 30:
+#            break
+#    #If someone wins the first 10 matches they are the winner
+#    elif nGames == 10:
+#        if wins == 10:
+#            break
+#        elif wins == 0:
+#            break
+#        
+#loss = nGames - wins
+#if wins > loss:
+#    print("Player 1 wins after", nGames, "games")
+#else:
+#    print("Player 2 wins after", nGames, "games")
+#
+#    
+#
+#
