@@ -6,7 +6,7 @@ To contribute to this repository please complete the following steps:
 
 1. First, remove all Personal Identifying Information (PII) from the documents you wish to submit. This includes but is not limited to: Name, SSN, Contact Information, and Address.
 
-2. Next, please email the documents to email@email.com with a brief description including what career opportunities they were successful in helping you achieve.
+2. Next, please email the documents (preferably in pdf format) to email@email.com with a brief description including what career opportunities they were successful in helping you achieve.
 
 3. Within the same email, please also provide written consent allowing the documents to be posted to this repository.
 
