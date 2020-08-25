@@ -2,8 +2,14 @@
 """
 Created on Fri Mar  6 20:47:18 2020
 
+Code for showing a single Battleship match, currently require package XXX
+
+
 @author: Kyle
 """
+
+
+
 
 import matplotlib.pyplot as plt
 from matplotlib import animation
@@ -22,10 +28,6 @@ def placePiece(piece, Board):
     b = min(col)
     l = min(row)
     r = max(row)
-#    t = piece[0][0]
-#    b = piece[-1][0]
-#    l = piece[0][1]
-#    r = piece[-1][1]
     Board[b*10 + 2:t*10+9,l*10 + 2:r*10+9] = np.ones((10*(t-b)+7,10*(r-l)+7),dtype = int)*5
 
 def init():
@@ -71,9 +73,6 @@ for p in game.b2Copy:
 Board = np.concatenate((A,np.ones((100,10), dtype = int),B),axis = 1)
 
 
-
-#B=Checkerboard(100,10)
-#print(B)
 fig = plt.figure()
 ax = plt.axes(xlim=(0, 210), ylim=(0, 100))
 im = plt.imshow(Board)
@@ -82,43 +81,3 @@ im = plt.imshow(Board)
 frame = len(game.p1Moves) + len(game.p2Moves)+1
 anim = animation.FuncAnimation(fig, animate, init_func=init, frames=frame, interval=500, blit=True)
 anim.save("Battleship.mp4")
-
-
-#
-#game = GameManager()
-#
-#wins = 0
-##Run up to 1001 games, to ensure no tie
-#for nGames in range(1,1002):
-#    #number of wins for first player
-#    wins += game.startGame()
-#    #second player has won nGames - wins
-#    
-#    #if more than one hundred games first one to win 500 games wins match
-#    if nGames > 100:
-#        if wins > 500:
-#            break
-#        elif nGames - wins > 500:
-#            break
-#    #If someone wins more than 70 of the first 100 games they are the winner
-#    elif nGames >= 70:
-#        if wins >= 70:
-#            break
-#        elif wins <= 30:
-#            break
-#    #If someone wins the first 10 matches they are the winner
-#    elif nGames == 10:
-#        if wins == 10:
-#            break
-#        elif wins == 0:
-#            break
-#        
-#loss = nGames - wins
-#if wins > loss:
-#    print("Player 1 wins after", nGames, "games")
-#else:
-#    print("Player 2 wins after", nGames, "games")
-#
-#    
-#
-#
