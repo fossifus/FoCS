@@ -19,12 +19,17 @@ class AIPlayer:
         #list of ships in ordered pair i.e. [[row, col], [row, col]], see place piece method
         self.pieces = []
         
+        self.amIFirst = False
+        
         
     #A method to prepare for a new game
     #This method is called at the beginning of each game, so up to 1000 times in a single match
     def startGame(self):
         #The result of the last move, The game manager will update this after you make a shot
         self.lastMoveResult = 0 #Miss = 0, Hit = 1, Sink = -1
+        
+        #This will be set by the GameManager, if it is still -1,-1 then you are first
+        self.OtherplayersLastMove = [-1,-1]
         
         #place your pieces on the board
         self.placePieces()

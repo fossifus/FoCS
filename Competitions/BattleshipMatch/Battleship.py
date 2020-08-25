@@ -35,6 +35,7 @@ class GameManager():
         self.isGameOver = False
         
         #initialize player1
+        self.p1.amIFirst = self.player1Turn
         self.p1.startGame()
         self.b1 = copy.deepcopy(self.p1.pieces)
         self.b1Copy = copy.deepcopy(self.b1)
@@ -45,6 +46,7 @@ class GameManager():
             return 0
         
         #initialize player2
+        self.p2.amIFirst = not self.player1Turn
         self.p2.startGame()
         self.b2 = copy.deepcopy(self.p2.pieces)
         self.b2Copy = copy.deepcopy(self.b2)
